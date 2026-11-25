@@ -24,7 +24,6 @@
 * { box-sizing: border-box; }
 
 html {
-    scroll-behavior: smooth;
     scroll-padding-top: 90px;
 }
 
@@ -80,7 +79,6 @@ nav a {
     font-size: 11px;
     letter-spacing: 1.5px;
     color: var(--muted);
-    transition: color .3s;
 }
 
 nav a:hover { color: var(--dark); }
@@ -104,7 +102,6 @@ nav a:hover { color: var(--dark); }
     right: -100px;
     top: 18%;
     background: radial-gradient(circle, rgba(179,150,116,.28), rgba(179,150,116,0) 70%);
-    animation: breathe 8s ease-in-out infinite alternate;
 }
 
 .hero-label {
@@ -156,7 +153,6 @@ nav a:hover { color: var(--dark); }
     height: 1px;
     background: var(--accent);
     transform-origin: left;
-    animation: lineMove 2s infinite;
 }
 
 main { padding: 0 8%; }
@@ -273,11 +269,9 @@ main { padding: 0 8%; }
     min-height: 225px;
     border: 1px solid rgba(89,70,56,.07);
     border-radius: 5px;
-    transition: transform .4s, box-shadow .4s, border-color .4s;
 }
 
 .info-card:hover {
-    transform: translateY(-8px);
     box-shadow: 0 20px 45px rgba(67,49,34,.09);
     border-color: rgba(169,137,104,.45);
 }
@@ -313,7 +307,6 @@ main { padding: 0 8%; }
     padding: 45px;
     min-height: 250px;
     border-radius: 5px;
-    transition: background .4s, transform .4s;
 }
 
 .interest-item:nth-child(2) { background: #ded0bd; }
@@ -321,7 +314,6 @@ main { padding: 0 8%; }
 .interest-item:nth-child(4) { background: #d4c2ad; }
 
 .interest-item:hover {
-    transform: scale(1.015);
     background: #d2bda4;
 }
 
@@ -419,27 +411,9 @@ footer {
 }
 
 .reveal {
-    opacity: 0;
-    transform: translateY(35px);
-    transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1);
-}
-
-.reveal.visible {
     opacity: 1;
-    transform: translateY(0);
-}
-
-.delay-1 { transition-delay: .12s; }
-.delay-2 { transition-delay: .24s; }
-
-@keyframes breathe {
-    from { transform: translate(0, 0) scale(.9); }
-    to { transform: translate(-30px, 25px) scale(1.12); }
-}
-
-@keyframes lineMove {
-    0%, 100% { transform: scaleX(.45); opacity: .5; }
-    50% { transform: scaleX(1); opacity: 1; }
+    transform: none;
+    transition: none;
 }
 
 @media (max-width: 700px) {
@@ -625,30 +599,6 @@ footer {
 </footer>
 
 <script>
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-        }
-    });
-}, {
-    threshold: 0.12
-});
-
-document.querySelectorAll(".reveal").forEach(element => {
-    observer.observe(element);
-});
-
-// マウスの動きに合わせて背景の光を少し動かす
-const hero = document.querySelector(".hero");
-hero.addEventListener("pointermove", (event) => {
-    const rect = hero.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
-    hero.style.setProperty("--mouse-x", `${x * 100}%`);
-    hero.style.setProperty("--mouse-y", `${y * 100}%`);
-});
 </script>
 
 </body>
