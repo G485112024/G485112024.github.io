@@ -1,59 +1,655 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自己紹介サイト</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
-            text-align: center;
-            margin: 0;
-            padding: 40px 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f1e9">
+<title>HINATA | Portfolio</title>
 
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px #0002;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        h1 {
-            color: #3478c9;
-        }
+<style>
+:root {
+    --bg: #f5f1e9;
+    --paper: #fffdf8;
+    --brown: #594638;
+    --dark: #30271f;
+    --muted: #958577;
+    --line: #e5dbce;
+    --accent: #a98968;
+}
 
-        h2 {
-            border-bottom: 2px solid #3478c9;
-            padding-bottom: 8px;
-        }
+* { box-sizing: border-box; }
 
-        p {
-            line-height: 1.8;
-        }
-    </style>
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--dark);
+    font-family: "DM Sans", "Noto Sans JP", sans-serif;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    opacity: .35;
+    background-image: radial-gradient(#a58b70 0.55px, transparent 0.55px);
+    background-size: 22px 22px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(245,241,233,.82);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(89,70,56,.08);
+}
+
+.logo {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--brown);
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    transition: color .3s;
+}
+
+nav a:hover { color: var(--dark); }
+
+.hero {
+    min-height: 100svh;
+    padding: 150px 8% 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    border-radius: 50%;
+    right: -100px;
+    top: 18%;
+    background: radial-gradient(circle, rgba(179,150,116,.28), rgba(179,150,116,0) 70%);
+    animation: breathe 8s ease-in-out infinite alternate;
+}
+
+.hero-label {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 4px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(65px, 12vw, 150px);
+    line-height: .92;
+    letter-spacing: -7px;
+    font-weight: 500;
+    margin: 0;
+    color: var(--brown);
+    position: relative;
+}
+
+.hero h1 span {
+    display: block;
+    color: #a88b6d;
+    margin-left: 12%;
+}
+
+.hero-description {
+    max-width: 440px;
+    margin: 40px 0 0 13%;
+    color: #78695c;
+    font-size: 14px;
+    line-height: 2.2;
+    position: relative;
+}
+
+.hero-bottom {
+    position: absolute;
+    bottom: 35px;
+    left: 8%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 3px;
+}
+
+.scroll-line {
+    width: 55px;
+    height: 1px;
+    background: var(--accent);
+    transform-origin: left;
+    animation: lineMove 2s infinite;
+}
+
+main { padding: 0 8%; }
+
+.section {
+    padding: 125px 0;
+    border-top: 1px solid var(--line);
+}
+
+.section-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 55px;
+}
+
+.section-number {
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.section-heading h2 {
+    color: var(--brown);
+    font-size: clamp(28px, 4vw, 45px);
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.section-heading small {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 70px;
+    align-items: center;
+}
+
+.profile-mark {
+    min-height: 330px;
+    border-radius: 5px;
+    background: linear-gradient(145deg, #d9c9b5, #8e745d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,253,248,.8);
+    font-size: clamp(65px, 10vw, 115px);
+    letter-spacing: -8px;
+    font-weight: 500;
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-mark::after {
+    content: "";
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    transform: translate(35%, 35%);
+}
+
+.profile-info .eyebrow {
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 3px;
+}
+
+.profile-info h3 {
+    font-size: 28px;
+    font-weight: 500;
+    margin: 15px 0 25px;
+}
+
+.profile-info p {
+    font-size: 14px;
+    color: #78695c;
+    line-height: 2.3;
+}
+
+.profile-details {
+    display: flex;
+    gap: 35px;
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid var(--line);
+}
+
+.detail-label {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.detail-value { font-size: 13px; }
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.info-card {
+    background: var(--paper);
+    padding: 38px;
+    min-height: 225px;
+    border: 1px solid rgba(89,70,56,.07);
+    border-radius: 5px;
+    transition: transform .4s, box-shadow .4s, border-color .4s;
+}
+
+.info-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(67,49,34,.09);
+    border-color: rgba(169,137,104,.45);
+}
+
+.card-number {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+}
+
+.info-card h3 {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 28px 0 12px;
+    color: var(--brown);
+}
+
+.info-card p {
+    color: #857669;
+    font-size: 13px;
+    line-height: 2;
+    margin: 0;
+}
+
+.interest-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.interest-item {
+    background: #e9e0d4;
+    padding: 45px;
+    min-height: 250px;
+    border-radius: 5px;
+    transition: background .4s, transform .4s;
+}
+
+.interest-item:nth-child(2) { background: #ded0bd; }
+.interest-item:nth-child(3) { background: #e3d9ca; }
+.interest-item:nth-child(4) { background: #d4c2ad; }
+
+.interest-item:hover {
+    transform: scale(1.015);
+    background: #d2bda4;
+}
+
+.interest-item span {
+    color: #8a7058;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.interest-item h3 {
+    font-size: 27px;
+    font-weight: 500;
+    margin: 35px 0 12px;
+    color: var(--brown);
+}
+
+.interest-item p {
+    font-size: 13px;
+    line-height: 2;
+    color: #756455;
+}
+
+.future-panel {
+    padding: 65px;
+    background: var(--brown);
+    color: var(--paper);
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.future-panel::after {
+    content: "FUTURE";
+    position: absolute;
+    right: -15px;
+    bottom: -45px;
+    font-size: clamp(90px, 17vw, 220px);
+    font-weight: 700;
+    color: rgba(255,255,255,.045);
+    letter-spacing: -10px;
+    pointer-events: none;
+}
+
+.future-panel h3 {
+    font-size: clamp(28px, 4vw, 46px);
+    line-height: 1.5;
+    font-weight: 400;
+    margin: 0 0 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.future-panel p {
+    max-width: 520px;
+    font-size: 13px;
+    line-height: 2.3;
+    color: #d6c8b8;
+    position: relative;
+    z-index: 1;
+}
+
+.message {
+    text-align: center;
+    padding: 145px 20px;
+}
+
+.message .eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--accent);
+}
+
+.message h2 {
+    font-size: clamp(32px, 6vw, 65px);
+    color: var(--brown);
+    font-weight: 400;
+    margin: 25px 0;
+    letter-spacing: 2px;
+}
+
+.message p {
+    color: #857669;
+    font-size: 13px;
+    line-height: 2.2;
+}
+
+footer {
+    padding: 30px 8%;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 { transition-delay: .12s; }
+.delay-2 { transition-delay: .24s; }
+
+@keyframes breathe {
+    from { transform: translate(0, 0) scale(.9); }
+    to { transform: translate(-30px, 25px) scale(1.12); }
+}
+
+@keyframes lineMove {
+    0%, 100% { transform: scaleX(.45); opacity: .5; }
+    50% { transform: scaleX(1); opacity: 1; }
+}
+
+@media (max-width: 700px) {
+    header { padding: 16px 5%; }
+    nav { gap: 13px; }
+    nav a { font-size: 9px; letter-spacing: .5px; }
+    .hero { padding: 130px 7% 100px; }
+    .hero h1 { letter-spacing: -4px; }
+    .hero-description { margin-left: 3%; }
+    main { padding: 0 6%; }
+    .section { padding: 85px 0; }
+    .profile-grid, .interest-layout { grid-template-columns: 1fr; gap: 25px; }
+    .profile-mark { min-height: 230px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .info-card { min-height: 190px; padding: 30px; }
+    .future-panel { padding: 40px 28px; }
+    .profile-details { gap: 20px; flex-wrap: wrap; }
+    .message { padding: 100px 10px; }
+}
+
+@media (max-width: 390px) {
+    nav { gap: 8px; }
+    nav a { font-size: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+}
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>自己紹介</h1>
 
-        <h2>プロフィール</h2>
-        <p>名前：室井 桧七太</p>
-        <p>学校：拓殖大学</p>
+<header>
+    <a class="logo" href="#top">HINATA.</a>
+    <nav>
+        <a href="#profile">PROFILE</a>
+        <a href="#hobby">HOBBY</a>
+        <a href="#interest">INTEREST</a>
+        <a href="#future">FUTURE</a>
+    </nav>
+</header>
 
-        <h2>趣味</h2>
-        <p>ゲームやCG制作に興味があります。</p>
-
-        <h2>興味のあること</h2>
-        <p>Blenderを使った3DCG制作やWeb制作に興味があります。</p>
-
-        <h2>ひとこと</h2>
-        <p>これからいろいろなことに挑戦していきたいです！</p>
+<section class="hero" id="top">
+    <div class="hero-label reveal">WELCOME TO MY PORTFOLIO</div>
+    <h1 class="reveal delay-1">Hello,<span>I'm Hinata.</span></h1>
+    <p class="hero-description reveal delay-2">
+        はじめまして。ひなたです。<br>
+        好きなことや興味のあることを、<br>
+        自分らしく紹介するプロフィールサイトです。
+    </p>
+    <div class="hero-bottom">
+        <span>SCROLL TO EXPLORE</span>
+        <div class="scroll-line"></div>
     </div>
+</section>
+
+<main>
+    <section class="section" id="profile">
+        <div class="section-heading reveal">
+            <span class="section-number">01 /</span>
+            <h2>Profile</h2>
+            <small>ABOUT ME</small>
+        </div>
+
+        <div class="profile-grid">
+            <div class="profile-mark reveal">Hi.</div>
+            <div class="profile-info reveal delay-1">
+                <span class="eyebrow">NICE TO MEET YOU</span>
+                <h3>こんにちは、ひなたです。</h3>
+                <p>
+                    拓殖大学に通っています。<br>
+                    ゲームやCG制作に興味があり、
+                    新しい技術や表現方法に触れることが好きです。
+                    このサイトでは、プロフィールや興味のある分野を紹介しています。
+                </p>
+                <div class="profile-details">
+                    <div>
+                        <span class="detail-label">NAME</span>
+                        <span class="detail-value">室井 桧七太</span>
+                    </div>
+                    <div>
+                        <span class="detail-label">SCHOOL</span>
+                        <span class="detail-value">拓殖大学</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="hobby">
+        <div class="section-heading reveal">
+            <span class="section-number">02 /</span>
+            <h2>Hobby</h2>
+            <small>WHAT I LIKE</small>
+        </div>
+
+        <div class="card-grid">
+            <article class="info-card reveal">
+                <span class="card-number">01 — GAME</span>
+                <h3>Game</h3>
+                <p>
+                    ゲームが好きで、さまざまな作品に触れています。
+                    遊ぶだけでなく、ゲームの世界観やデザインにも興味があります。
+                </p>
+            </article>
+            <article class="info-card reveal delay-1">
+                <span class="card-number">02 — CREATIVE</span>
+                <h3>Creative</h3>
+                <p>
+                    CGやデザインなど、自分のアイデアを形にすることに興味があります。
+                    新しい表現方法を少しずつ学んでいきたいです。
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section" id="interest">
+        <div class="section-heading reveal">
+            <span class="section-number">03 /</span>
+            <h2>Interest</h2>
+            <small>MY INTERESTS</small>
+        </div>
+
+        <div class="interest-layout">
+            <article class="interest-item reveal">
+                <span>01 / 3D GRAPHICS</span>
+                <h3>Blender</h3>
+                <p>3DCG制作に興味があります。形や色、質感などを自由に表現できるところに魅力を感じています。</p>
+            </article>
+            <article class="interest-item reveal delay-1">
+                <span>02 / WEB DESIGN</span>
+                <h3>Web Design</h3>
+                <p>見た目の美しさだけでなく、使いやすさや動きにもこだわったWebサイトを作ってみたいです。</p>
+            </article>
+            <article class="interest-item reveal">
+                <span>03 / VISUAL</span>
+                <h3>Visual Expression</h3>
+                <p>色やレイアウト、アニメーションを組み合わせた視覚的な表現に関心があります。</p>
+            </article>
+            <article class="interest-item reveal delay-1">
+                <span>04 / TECHNOLOGY</span>
+                <h3>New Technology</h3>
+                <p>新しい技術に触れながら、自分にできることや表現の幅を広げていきたいです。</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section" id="future">
+        <div class="section-heading reveal">
+            <span class="section-number">04 /</span>
+            <h2>Future</h2>
+            <small>WHAT'S NEXT</small>
+        </div>
+
+        <div class="future-panel reveal">
+            <h3>好きなことを、<br>新しい表現につなげていく。</h3>
+            <p>
+                Blenderを使ったCG制作やWeb制作について、これからさらに学んでいきたいと考えています。
+                CGとWebを組み合わせた新しい表現にも挑戦し、自分なりの作品を作れるようになることが目標です。
+            </p>
+        </div>
+    </section>
+
+    <section class="message reveal">
+        <span class="eyebrow">THANK YOU FOR VISITING</span>
+        <h2>Thank you.</h2>
+        <p>
+            最後まで見ていただき、ありがとうございます。<br>
+            これからもいろいろなことに挑戦していきたいです。
+        </p>
+    </section>
+</main>
+
+<footer>
+    <span>HINATA.</span>
+    <span>MY PROFILE WEBSITE © 2026</span>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.12
+});
+
+document.querySelectorAll(".reveal").forEach(element => {
+    observer.observe(element);
+});
+
+// マウスの動きに合わせて背景の光を少し動かす
+const hero = document.querySelector(".hero");
+hero.addEventListener("pointermove", (event) => {
+    const rect = hero.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    hero.style.setProperty("--mouse-x", `${x * 100}%`);
+    hero.style.setProperty("--mouse-y", `${y * 100}%`);
+});
+</script>
+
 </body>
 </html>
